@@ -15,14 +15,14 @@ module.exports = function(env = {}){
   if(target == 'build'){
     name += `-${version}.min.js`;
     //compress js in production environment
-    plugins.push(
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          drop_console: false,
-         }
-      })
-    );
+    // plugins.push(
+    //   new webpack.optimize.UglifyJsPlugin({
+    //     compress: {
+    //       warnings: false,
+    //       drop_console: false,
+    //      }
+    //   })
+    // );
   }
 
 

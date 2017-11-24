@@ -8,8 +8,8 @@ const IDENTIFY = {
     POP_VIEW: 'POP_VIEW'
 }
 function is(id) {
-    const ua = navigator.userAgent;
-    return ua.indexOf(id) > -1;
+    const ua = navigator.userAgent
+    return ua.indexOf(id) > -1
 }
 
 /**
@@ -20,45 +20,45 @@ function is(id) {
  * getInfo().NO_VIEW 不在APP里
  * getInfo().VERSION
  */
-let __ua_info;
+var _ua = null
 function getInfo() {
-    if (!__ua_info) {
-        __ua_info = {}
+    if (!_ua) {
+        _ua = {}
 
         for (let key in IDENTIFY) {
-            __ua_info[key] = is(key);
+            _ua[key] = is(key)
         }
 
         // 如果 不是POPVIEW 也不是APPVIEW 那就不是在APP
-        if (!__ua_info.APP_VIEW && !__ua_info.POP_VIEW) {
-            __ua_info.NO_VIEW = true;
+        if (!_ua.APP_VIEW && !_ua.POP_VIEW) {
+            _ua.NO_VIEW = true
         }
-        const {APP_VIEW, POP_VIEW, NO_VIEW} = __ua_info;
+        const {APP_VIEW, POP_VIEW, NO_VIEW} = _ua
 
         // 具体是哪一个VIEW
-        __ua_info.VIEW = APP_VIEW ? 'APP_VIEW' : POP_VIEW ? 'POP_VIEW' : 'NO_VIEW';
+        _ua.VIEW = APP_VIEW ? 'APP_VIEW' : POP_VIEW ? 'POP_VIEW' : 'NO_VIEW'
 
-        const jhIndex = navigator.userAgent.indexOf('JH ');
+        const jhIndex = navigator.userAgent.indexOf('JH ')
         if (jhIndex > -1) {
-            __ua_info.VERSION = navigator.userAgent.substring(jhIndex + 3, 8);
+            _ua.VERSION = navigator.userAgent.substring(jhIndex + 3, 8)
         }
     }
-    return __ua_info
+    return _ua
 }
 
 function sendMessage(evt, arg = "") {
     if (getInfo().IOS) {
-        window.webkit.messageHandlers[getInfo().VIEW].postMessage({event: evt, arg: arg});
+        window.webkit.messageHandlers[getInfo().VIEW].postMessage({event: evt, arg: arg})
     } else if(getInfo().Android) {
-        window.__BRIDGE.bridge(evt, arg);
+        window.__BRIDGE.bridge(evt, arg)
     }
 }
 
 
 const view = {
     back() {
-        if (NO_VIEW) {
-            history.back();
+        if (getInfo().NO_VIEW) {
+            history.back()
         } else {
             sendMessage('back')
         }
@@ -70,7 +70,11 @@ const view = {
         sendMessage('hide')
     },
     load({ url }) {
-        sendMessage('load', url)
+        if (getInfo().NO_VIEW) {
+            location.href = url
+        } else {
+            sendMessage('load', url)
+        }
     }
 }
 const native = {
@@ -83,6 +87,6 @@ const native = {
     }
 }
 
-const JHBridge = { view, native, info: getInfo()};
+const JHBridge = { view, native, info: getInfo()}
 
-export JHBridge;
+export default JHBridge
