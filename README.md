@@ -1,7 +1,7 @@
 # JHBridge
 江湖 JS Bridge API
 
-```
+```bash
 npm install jhbridge --save
 ```
 
@@ -10,13 +10,22 @@ npm install jhbridge --save
 APP View 是主程序所用的 Webview
 POP View 是小程序所用的 Webview
 
-```
-const { view, native, info} = JHBridge
-    view.back() // 当前 Webview 返回上一页
-    view.show() // 显示小程序页面，传入是否清理上次浏览内容的标识
-    view.hide() // 隐藏小程序页面
-    view.load({ url }) // 加载小程序页面
-}
+```javascript
+const JHBridge = require('jhbridge');
+
+JHBridge.view.back() // 当前 Webview 返回上一页
+JHBridge.view.show() // 显示小程序页面，传入是否清理上次浏览内容的标识
+JHBridge.view.hide() // 隐藏小程序页面
+JHBridge.view.load({ url }) // 加载小程序页面
+
+
+JHBridge.info.Android // true | false 在Android上   
+JHBridge.info.IOS // true | false 在IOS
+JHBridge.info.APP_VIEW // true | false 在APP_VIEW里
+JHBridge.info.POP_VIEW // true | false 在POP_VIEW里
+JHBridge.info.NO_VIEW // true | false 不在APP里
+JHBridge.info.VERSION // x.x.x 当前APP的版本
+
 ```
 以上逻辑均可以在 APP View 和 POP View 里面使用。
 

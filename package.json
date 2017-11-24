@@ -1,6 +1,6 @@
 {
   "name": "jhbridge",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "江湖 JS bridge",
   "main": "dist/index.js",
   "scripts": {
