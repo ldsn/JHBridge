@@ -1,6 +1,10 @@
 # JHBridge
 江湖 JS Bridge API
 
+```
+npm install jhbridge --save
+```
+
 浏览器中包括两个view，APP View 和 POP View。
 
 APP View 是主程序所用的 Webview
