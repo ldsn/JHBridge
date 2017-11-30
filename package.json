@@ -4,7 +4,7 @@
   "description": "江湖 JS bridge",
   "main": "dist/index.js",
   "scripts": {
-    "start": "webpack-dev-server --port 8088 -d --quiet & http-server demo -c-1 -p 8081",
+    "start": "webpack-dev-server --port 8088 -d --quiet & http-server . -c-1 -p 8081",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

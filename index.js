@@ -1,6 +1,19 @@
+const receiveArr = [];
 window.__receiveJHMessage = function(evt, arg) {
-    
+    receiveArr.forEach(func =>{
+        func(evt, arg);
+    });
 }
+
+function addReceiveListener(func) {
+    receiveArr.push(func);
+}
+
+function removeReceiveListener(func) {
+    const i = receiveArr.indexOf(func);
+    receiveArr.splice(i, 1);
+}
+
 const IDENTIFY = {
     Android: 'JH_Android',
     IOS: 'JH_IOS',
@@ -84,7 +97,9 @@ const native = {
     }, 
     onResume(func){
 
-    }
+    },
+    addReceiveListener,
+    removeReceiveListener
 }
 
 const JHBridge = { view, native, info: getInfo()}

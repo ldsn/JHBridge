@@ -42,7 +42,7 @@ module.exports = function(env = {}){
 
 
   return {
-    entry: ["babel-polyfill", './index.js'],
+    entry: [ './index.js'],
     output: {
       filename: env.production ? name : 'index.js',
       path: path.resolve(__dirname, 'dist'),

@@ -38,5 +38,23 @@ JHBridge.info.VERSION // x.x.x 当前APP的版本
 `view.show()` 可以在 POP View 的业务逻辑里写，比如不需要用户来主动触发的POP View（活动等），需要定时弹出的POP View，可以在页面 Dom 加载完成、业务逻辑执行的时候显示，比如，我们可以在小程序里面判断当前用户是否需要弹出这个POP View，就不用再主程序里面判断当前用户是否需要弹出了。
 
 
+## 注册接收native传来的消息
+
+```javascript
+const func = (evt, arg)=>{
+
+};
+JHBridge.native.addReceiveListener(func);
+```
+
+可注册多个，接收两个参数：
+- evt: (string)事件名称（push）
+- arg: (string)参数内容
+
+比如推送被点击的事件名称为`'push'`，arg是一个json格式的字符串。
 
 
+可以删除注册的事件
+```
+JHBridge.native.removeReceiveListener(func); // func保证与注册时候的函数指向相同的地址。
+```
