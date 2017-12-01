@@ -40,6 +40,9 @@ JHBridge.info.VERSION // x.x.x 当前APP的版本
 
 ## 注册接收native传来的消息
 
+
+### JHBridge.native.addReceiveListener
+
 ```javascript
 const func = (evt, arg)=>{
 
@@ -48,13 +51,24 @@ JHBridge.native.addReceiveListener(func);
 ```
 
 可注册多个，接收两个参数：
-- evt: (string)事件名称（push）
+
+- evt: (string)事件名称
 - arg: (string)参数内容
 
-比如推送被点击的事件名称为`'push'`，arg是一个json格式的字符串。
+比如推送被点击的事件名称为`'notification'`，arg是一个json格式的字符串。
 
+### JHBridge.native.removeReceiveListener
 
 可以删除注册的事件
-```
+
+```javascript
 JHBridge.native.removeReceiveListener(func); // func保证与注册时候的函数指向相同的地址。
 ```
+
+### JHBridge.native.flushReceive
+
+在注册 `addReceiveListener` 之前，可能已经有消息发送过来了
+
+比如应用关闭状态下，接收到推送的时候，点击推送其实会发送 notification 事件到 H5，但是这时候还没有调用 `addReceiveListener`，所以在 `addReceiveListener` 以后，需要调用 `JHBridge.native.flushReceive()`，来处理被缓存的事件。
+
+
