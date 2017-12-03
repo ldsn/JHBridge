@@ -29,6 +29,18 @@ const view = {
         } else {
             sendMessage('load', url)
         }
+    },
+    setConfig(config) {
+        for (let key in config) {
+            config[key] = config[key].toString();
+        }
+        if (getInfo().IOS) {
+            sendMessage('config', config);
+        } else if (getInfo().Android){
+            for (let key in config) {
+                sendMessage('config', `${key},${config[key]}`);
+            }
+        }
     }
 }
 const native = {

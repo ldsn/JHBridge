@@ -71,4 +71,20 @@ JHBridge.native.removeReceiveListener(func); // func保证与注册时候的函�
 
 比如应用关闭状态下，接收到推送的时候，点击推送其实会发送 notification 事件到 H5，但是这时候还没有调用 `addReceiveListener`，所以在 `addReceiveListener` 以后，需要调用 `JHBridge.native.flushReceive()`，来处理被缓存的事件。
 
+## 修改 POP View 的配置
 
+```javascript
+JHBridge.view.setConfig(config);
+```
+
+config 参数
+```javascript
+{
+    hardware: true,
+    clickAlpha: 0.2
+}
+```
+
+`hardware` 用来开启硬件加速，3d游戏可以开启硬件加速，默认为false
+
+`clickAlpha` 点透率，0-1 之间，如果设置为 0.2，那么，页面中透明度为 0.2 以下的内容是不会拦截点击事件的，可以直接点击到 APP View 层。比如 POP View 页面和APP View 页面配合交互的场景，POP View 用来引导点击 APP View 上的某个按钮。
